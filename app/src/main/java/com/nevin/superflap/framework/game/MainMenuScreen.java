@@ -26,7 +26,7 @@ public class MainMenuScreen extends Screen {
             if (event.type == TouchEvent.TOUCH_UP) {
 
                 if (inBounds(event, 50, 350, 250, 450)) {
-                    game.setScreen(new LoadingScreen(game));
+                    game.setScreen(new GameScreen(game));
                 }
 
             }
