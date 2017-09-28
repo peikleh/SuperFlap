@@ -22,7 +22,6 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
         this.game = game;
         this.framebuffer = framebuffer;
         this.holder = getHolder();
-
     }
 
     public void resume() {
@@ -47,12 +46,8 @@ public class AndroidFastRenderView extends SurfaceView implements Runnable {
                 deltaTime = (float) 3.15;
             }
 
-
             game.getCurrentScreen().update(deltaTime);
             game.getCurrentScreen().paint(deltaTime);
-
-
-
             Canvas canvas = holder.lockCanvas();
             canvas.getClipBounds(dstRect);
             canvas.drawBitmap(framebuffer, null, dstRect, null);

@@ -25,20 +25,18 @@ public class Player {
             if(speedY < MOVESPEED){
                 speedY+=1;
             }
-
         }
 
         if (movingDown == true){
             if(speedY > (MOVESPEED*-1)){
                 speedY-=1;
             }
-
         }
         centerY += (speedY/2);
         speedX = MOVESPEED - Math.abs(speedY);
-        bg1.setSpeedX(-speedX/8);//scroll accordingly
-        bg2.setSpeedX(-speedX/8);
-        rect.set(centerX - 34, centerY - 63, centerX + 34, centerY);//set bounding box for player
+        bg1.setSpeedX(-speedX/6);//scroll accordingly
+        bg2.setSpeedX(-speedX/6);
+        rect.set(centerX - 5, centerY - 37, centerX + 40, centerY + 23);//set bounding box for player
     }
 
     public void setMovingUp(boolean movUp){

@@ -20,50 +20,25 @@ public class GameScreen extends Screen {
     enum GameState {
         Ready, Running, Paused, GameOver
     }
-
     GameState state = GameState.Ready;
 
     // Variable Setup
-
     private static Background bg1, bg2;
     private static Player Player;
-
-
-    private Image currentSprite, character, character2, character3;
-    private Animation anim;
-
+    private Image currentSprite, character;
     private ArrayList tilearray = new ArrayList();
-
     int livesLeft = 1;
     Paint paint, paint2, paint3;
 
     public GameScreen(Game game) {
         super(game);
-
         // Initialize game objects here
-
         bg1 = new Background(0, 0);
         bg2 = new Background(2160, 0);
         Player = new Player();
-
         character = Assets.character;
-        character2 = Assets.character2;
-        character3 = Assets.character3;
-
-
-
-        anim = new Animation();
-        anim.addFrame(character, 1250);
-        anim.addFrame(character2, 50);
-        anim.addFrame(character3, 50);
-        anim.addFrame(character2, 50);
-
-
-
-        currentSprite = anim.getImage();
-
+        currentSprite = character;
         loadMap();
-
         // Defining a paint object
         paint = new Paint();
         paint.setTextSize(30);
@@ -82,18 +57,15 @@ public class GameScreen extends Screen {
         paint3.setTextAlign(Paint.Align.CENTER);
         paint3.setAntiAlias(true);
         paint3.setColor(Color.WHITE);
-
     }
 
     private void loadMap() {
         ArrayList lines = new ArrayList();
         int width = 0;
         int height = 0;
-
         Scanner scanner = new Scanner(SuperFlap.map);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-
             // no more lines to read
             if (line == null) {
                 break;
@@ -102,11 +74,9 @@ public class GameScreen extends Screen {
             if (!line.startsWith("!")) {
                 lines.add(line);
                 width = Math.max(width, line.length());
-
             }
         }
         height = lines.size();
-
         for (int j = 0; j < 12; j++) {
             String line = (String) lines.get(j);
             for (int i = 0; i < width; i++) {
@@ -116,21 +86,13 @@ public class GameScreen extends Screen {
                     Tile t = new Tile(i, j, Character.getNumericValue(ch));
                     tilearray.add(t);
                 }
-
             }
         }
-
     }
 
     @Override
     public void update(float deltaTime) {
         List touchEvents = game.getInput().getTouchEvents();
-
-        // We have four separate update methods in this example.
-        // Depending on the state of the game, we call different update methods.
-        // Refer to Unit 3's code. We did a similar thing without separating the
-        // update methods.
-
         if (state == GameState.Ready)
             updateReady(touchEvents);
         if (state == GameState.Running)
@@ -142,37 +104,23 @@ public class GameScreen extends Screen {
     }
 
     private void updateReady(List touchEvents) {
-
-        // This example starts with a "Ready" screen.
-        // When the user touches the screen, the game begins.
-        // state now becomes GameState.Running.
-        // Now the updateRunning() method will be called!
-
         if (touchEvents.size() > 0)
             state = GameState.Running;
     }
 
     private void updateRunning(List touchEvents, float deltaTime) {
-
-        // This is identical to the update() method from our Unit 2/3 game.
-
-        // 1. All touch input is handled here:
         int len = touchEvents.size();
         for (int i = 0; i < len; i++) {
             TouchEvent event = (TouchEvent) touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_DOWN) {
-
                 if (event.x > 400) {
                     // Move right.
                     Player.setMovingUp(true);
-
                 }
                 if (event.x < 400) {
                     // Move right.
                     Player.setMovingDown(true);
-
                 }
-
             }
 
             if (event.type == TouchEvent.TOUCH_UP) {
@@ -189,19 +137,11 @@ public class GameScreen extends Screen {
 
         }
 
-        // 2. Check miscellaneous events like death:
-
         if (livesLeft == 0) {
             state = GameState.GameOver;
         }
 
-        // 3. Call individual update() methods here.
-        // This is where all the game updates happen.
-        // For example, Player.update();
         Player.update();
-
-        currentSprite = anim.getImage();
-
         updateTiles();
         bg1.update();
         bg2.update();
@@ -275,12 +215,7 @@ public class GameScreen extends Screen {
 
         g.drawImage(currentSprite, Player.getCenterX() - 61,
                 Player.getCenterY() - 63);
-        
-        // Example:
-        // g.drawImage(Assets.background, 0, 0);
-        // g.drawImage(Assets.character, characterX, characterY);
 
-        // Secondly, draw the UI above the game elements.
         if (state == GameState.Ready)
             drawReadyUI();
         if (state == GameState.Running)
@@ -302,34 +237,25 @@ public class GameScreen extends Screen {
     }
 
     public void animate() {
-        anim.update(10);
+
 
     }
 
     private void nullify() {
 
-        // Set all variables to null. You will be recreating them in the
-        // constructor.
         paint = null;
         bg1 = null;
         bg2 = null;
         Player = null;
-
         currentSprite = null;
         character = null;
-        character2 = null;
-        character3 = null;
 
-        anim = null;
-
-        // Call garbage collector to clean up memory.
         System.gc();
 
     }
 
     private void drawReadyUI() {
         Graphics g = game.getGraphics();
-
         g.drawARGB(155, 0, 0, 0);
         g.drawString("Tap to Start.", 400, 240, paint);
 
@@ -339,6 +265,7 @@ public class GameScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawString(Integer.toString(Player.getScore()), 400, 50,paint3);
         g.drawString(Integer.toString(Player.getSpeedX()), 400, 100,paint3);
+        g.drawRect(Player.rect.left, Player.rect.top, Player.rect.width(), Player.rect.height(), Color.BLACK);
     }
 
     private void drawPausedUI() {
@@ -352,7 +279,6 @@ public class GameScreen extends Screen {
 
     private void drawGameOverUI() {
         Graphics g = game.getGraphics();
-        g.drawRect(0, 0, 1281, 801, Color.BLACK);
         g.drawString("GAME OVER.", 400, 240, paint2);
         g.drawString("Tap to return.", 400, 290, paint);
 
