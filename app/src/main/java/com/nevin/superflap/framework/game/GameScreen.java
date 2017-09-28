@@ -35,7 +35,7 @@ public class GameScreen extends Screen {
     private ArrayList tilearray = new ArrayList();
 
     int livesLeft = 1;
-    Paint paint, paint2;
+    Paint paint, paint2, paint3;
 
     public GameScreen(Game game) {
         super(game);
@@ -76,6 +76,12 @@ public class GameScreen extends Screen {
         paint2.setTextAlign(Paint.Align.CENTER);
         paint2.setAntiAlias(true);
         paint2.setColor(Color.WHITE);
+
+        paint3 = new Paint();
+        paint3.setTextSize(50);
+        paint3.setTextAlign(Paint.Align.CENTER);
+        paint3.setAntiAlias(true);
+        paint3.setColor(Color.WHITE);
 
     }
 
@@ -161,6 +167,11 @@ public class GameScreen extends Screen {
                     Player.setMovingUp(true);
 
                 }
+                if (event.x < 400) {
+                    // Move right.
+                    Player.setMovingDown(true);
+
+                }
 
             }
 
@@ -169,6 +180,10 @@ public class GameScreen extends Screen {
                 if (event.x > 400) {
                     // Move right.
                     Player.setMovingUp(false);
+                }
+                if (event.x < 400) {
+                    // Move right.
+                    Player.setMovingDown(false);
                 }
             }
 
@@ -260,6 +275,7 @@ public class GameScreen extends Screen {
 
         g.drawImage(currentSprite, Player.getCenterX() - 61,
                 Player.getCenterY() - 63);
+        
         // Example:
         // g.drawImage(Assets.background, 0, 0);
         // g.drawImage(Assets.character, characterX, characterY);
@@ -321,11 +337,8 @@ public class GameScreen extends Screen {
 
     private void drawRunningUI() {
         Graphics g = game.getGraphics();
-        g.drawImage(Assets.button, 0, 285, 0, 0, 65, 65);
-        g.drawImage(Assets.button, 0, 350, 0, 65, 65, 65);
-        g.drawImage(Assets.button, 0, 415, 0, 130, 65, 65);
-        g.drawImage(Assets.button, 0, 0, 0, 195, 35, 35);
-
+        g.drawString(Integer.toString(Player.getScore()), 400, 50,paint3);
+        g.drawString(Integer.toString(Player.getSpeedX()), 400, 100,paint3);
     }
 
     private void drawPausedUI() {

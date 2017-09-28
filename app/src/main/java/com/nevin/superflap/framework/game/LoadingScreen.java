@@ -21,7 +21,7 @@ public class LoadingScreen extends Screen {
         Graphics g = game.getGraphics();
         Assets.menu = g.newImage("menu.png", ImageFormat.RGB565);
         Assets.background = g.newImage("background.png", ImageFormat.RGB565);
-        Assets.character = g.newImage("character.png", ImageFormat.ARGB4444);
+        Assets.character = g.newImage("Skier_Sprite1.png", ImageFormat.ARGB4444);
         Assets.character2 = g.newImage("character2.png", ImageFormat.ARGB4444);
         Assets.character3 = g.newImage("character3.png", ImageFormat.ARGB4444);
         Assets.characterJump = g.newImage("jumped.png", ImageFormat.ARGB4444);
@@ -41,7 +41,7 @@ public class LoadingScreen extends Screen {
         Assets.tilegrassLeft = g.newImage("tilegrassleft.png", ImageFormat.RGB565);
         Assets.tilegrassRight = g.newImage("tilegrassright.png", ImageFormat.RGB565);
 
-        Assets.button = g.newImage("button.jpg", ImageFormat.RGB565);
+
 
         //This is how you would load a sound if you had one.
         //Assets.click = game.getAudio().createSound("explode.ogg");
