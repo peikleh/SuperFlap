@@ -21,23 +21,18 @@ public class Tile {
     public Tile(int x, int y, int typeInt) {
         tileX = x * 40;
         tileY = y * 40;
-
         type = typeInt;
-
         r = new Rect();
 
-        if (type == 5) {
-            tileImage = Assets.tiledirt;
-        } else if (type == 8) {
-            tileImage = Assets.tilegrassTop;
-        } else if (type == 4) {
-            tileImage = Assets.tilegrassLeft;
-
-        } else if (type == 6) {
-            tileImage = Assets.tilegrassRight;
-
+        if (type == 1) {
+            tileImage = Assets.blue_gate;
         } else if (type == 2) {
-            tileImage = Assets.tilegrassBot;
+            tileImage = Assets.red_gate;
+        } else if (type == 3) {
+            tileImage = Assets.fin_line;
+
+        } else if (type == 4) {
+            tileImage = Assets.border_top;
         } else {
             type = 0;
         }
@@ -49,12 +44,9 @@ public class Tile {
         tileX += speedX;
         r.set(tileX, tileY, tileX+40, tileY+40);
 
-
-
-        if (Rect.intersects(r, Player.rect) && type != 0) {
+        if (Rect.intersects(r, Player.rect) && type != 0 && type !=3) {
             Player.isDead = true;
         }
-
     }
 
     public int getTileX() {

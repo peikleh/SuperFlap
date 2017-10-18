@@ -10,8 +10,8 @@ import com.nevin.superflap.framework.Sound;
 
 public class Assets {
 
-    public static Image menu, splash, background, character, character2, character3, heliboy, heliboy2, heliboy3, heliboy4, heliboy5;
-    public static Image tiledirt, tilegrassTop, tilegrassBot, tilegrassLeft, tilegrassRight, characterJump, characterDown;
+    public static Image menu, splash, background, character;
+    public static Image  border_top, border_bot, red_gate, blue_gate, fin_line;
 
     public static Sound click;
     public static Music theme;

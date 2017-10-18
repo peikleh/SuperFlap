@@ -137,10 +137,6 @@ public class GameScreen extends Screen {
 
         }
 
-        if (livesLeft == 0) {
-            state = GameState.GameOver;
-        }
-
         Player.update();
         updateTiles();
         bg1.update();
